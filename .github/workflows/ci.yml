@@ -19,7 +19,7 @@ jobs:
             - run: |
                   cd oxc
                   sed -i "s/bumpalo = \"=3.17.0\"/bumpalo = \"=3.18.1\"/g" Cargo.toml
-                  RUST_BACKTRACE=full RUSTFLAGS="-C debuginfo=2" cargo build --bin oxlint --profile release-with-debug
+                  RUST_BACKTRACE=full RUSTFLAGS="-C debuginfo=2 -C strip=none" cargo build --bin oxlint --profile coverage
                   cd ..
                   echo Running oxlint
-                  RUST_BACKTRACE=full valgrind ./oxc/target/release-with-debug/oxlint -A all ./bun/test/bundler/transpiler/fixtures/lots-of-for-loop.js
+                  RUST_BACKTRACE=full valgrind ./oxc/target/coverage/oxlint -A all ./bun/test/bundler/transpiler/fixtures/lots-of-for-loop.js
