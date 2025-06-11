@@ -16,6 +16,6 @@ jobs:
             - run: |
                   cd oxc
                   sed -i "s/bumpalo = \"=3.17.0\"/bumpalo = \"=3.18.1\"/g" Cargo.toml
-                  cargo build --bin oxlint --profile coverage
+                  RUST_BACKTRACE=full RUSTFLAGS="-C debuginfo=2" cargo build --bin oxlint --profile coverage
                   cd ..
                   ./oxc/target/coverage/oxlint -A all ./bun/test/bundler/transpiler/fixtures/lots-of-for-loop.js
