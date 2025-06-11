@@ -14,9 +14,12 @@ jobs:
             - run: |
                   git clone https://github.com/oxc-project/oxc --depth=1
                   git clone https://github.com/oven-sh/bun --depth=1
+            - name: Install Valgrind
+              run: sudo apt-get update && sudo apt-get install -y valgrind
             - run: |
                   cd oxc
                   sed -i "s/bumpalo = \"=3.17.0\"/bumpalo = \"=3.18.1\"/g" Cargo.toml
                   RUST_BACKTRACE=full RUSTFLAGS="-C debuginfo=2" cargo build --bin oxlint --profile coverage
                   cd ..
+                  echo Running oxlint
                   RUST_BACKTRACE=full valgrind ./oxc/target/coverage/oxlint -A all ./bun/test/bundler/transpiler/fixtures/lots-of-for-loop.js
