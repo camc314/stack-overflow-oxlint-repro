@@ -15,7 +15,11 @@ jobs:
                   git clone https://github.com/oven-sh/bun --depth=1
             - run: |
                   cd oxc
+                  cargo add backtrace-on-stack-overflow
                   sed -i "s/bumpalo = \"=3.17.0\"/bumpalo = \"=3.18.1\"/g" Cargo.toml
+                  sed -i '/fn main() -> CliRunResult {/a\
+                    unsafe { backtrace_on_stack_overflow::enable() };
+                  ' apps/oxlint/main.rs
                   RUST_BACKTRACE=full RUSTFLAGS="-C debuginfo=2" cargo build --bin oxlint --profile coverage
                   cd ..
                   ./oxc/target/coverage/oxlint -A all ./bun/test/bundler/transpiler/fixtures/lots-of-for-loop.js
