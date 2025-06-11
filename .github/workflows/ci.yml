@@ -22,4 +22,4 @@ jobs:
                   RUST_BACKTRACE=full RUSTFLAGS="-C debuginfo=2" cargo build --bin oxlint --profile release-with-debug
                   cd ..
                   echo Running oxlint
-                  RUST_BACKTRACE=full valgrind ./oxc/target/coverage/oxlint -A all ./bun/test/bundler/transpiler/fixtures/lots-of-for-loop.js
+                  RUST_BACKTRACE=full valgrind ./oxc/target/release-with-debug/oxlint -A all ./bun/test/bundler/transpiler/fixtures/lots-of-for-loop.js
