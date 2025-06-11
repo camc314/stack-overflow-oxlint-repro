@@ -15,7 +15,7 @@ jobs:
                   git clone https://github.com/oven-sh/bun --depth=1
             - run: |
                   cd oxc
-                  cargo add backtrace-on-stack-overflow
+                  cargo add backtrace-on-stack-overflow --package oxlint
                   sed -i "s/bumpalo = \"=3.17.0\"/bumpalo = \"=3.18.1\"/g" Cargo.toml
                   sed -i '/fn main() -> CliRunResult {/a\
                     unsafe { backtrace_on_stack_overflow::enable() };
